@@ -1,3 +1,4 @@
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import BottomIcons from "./features/footer/BottomIcons";
@@ -18,6 +19,31 @@ function App() {
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
+
+  useEffect(() => {
+    const win = getCurrentWindow();
+    let unlistenFn: (() => void) | undefined;
+
+    win.onFocusChanged(() =>{}).then((unlistener) => {
+      unlistenFn = unlistener;
+    });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSearchTerm('');
+        win.hide();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      if (unlistenFn) {
+        unlistenFn();
+      }
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => {
     const generateItems = (count: number, offset: number) => {

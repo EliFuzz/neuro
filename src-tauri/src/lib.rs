@@ -22,6 +22,8 @@ pub fn run() {
             } else {
                 win_builder.build()?
             };
+            window.show().unwrap();
+            window.set_focus().unwrap();
 
             // set background color only when building for macOS
             #[cfg(target_os = "macos")]
