@@ -15,6 +15,7 @@
         "visible": true,
         "transparent": true,
         "decorations": false,
+        "shadow": false,
         "resizable": false
       }
     ],
