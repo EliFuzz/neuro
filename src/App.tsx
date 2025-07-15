@@ -8,13 +8,31 @@ import SearchInput from "./features/search/SearchInput";
 function App() {
   const [theme, setTheme] = useState('dark');
   const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+    setSelectedItemIndex(-1);
+  };
   const [items, setItems] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const allItems = useRef<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
+  const listItemRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  const filteredItems = items.filter((item) =>
+    item.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     document.body.className = theme === 'dark' ? '' : 'light-theme';
   }, [theme]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+        inputRef.current.focus();
+    }
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
@@ -32,6 +50,30 @@ function App() {
       if (event.key === 'Escape') {
         setSearchTerm('');
         win.hide();
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (filteredItems.length > 0) {
+          setSelectedItemIndex((prevIndex) => {
+            const nextIndex = Math.min(prevIndex + 1, filteredItems.length - 1);
+            setTimeout(() => {
+              listItemRefs.current[nextIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 0);
+            return nextIndex;
+          });
+        }
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        setSelectedItemIndex((prevIndex) => {
+          const nextIndex = Math.max(prevIndex - 1, -1);
+          if (nextIndex === -1 && inputRef.current) {
+            inputRef.current.focus();
+          } else {
+            setTimeout(() => {
+              listItemRefs.current[nextIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 0);
+          }
+          return nextIndex;
+        });
       }
     };
 
@@ -43,7 +85,7 @@ function App() {
       }
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [filteredItems]);
 
   useEffect(() => {
     const generateItems = (count: number, offset: number) => {
@@ -53,10 +95,6 @@ function App() {
 
     setItems(allItems.current.slice(0, 50));
   }, []);
-
-  const filteredItems = items.filter((item) =>
-    item.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const loadMoreItems = useCallback(() => {
     if (loading) return;
@@ -71,11 +109,13 @@ function App() {
 
   return (
     <main className="container">
-      <SearchInput searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <SearchInput searchTerm={searchTerm} onSearchChange={handleSearchChange} inputRef={inputRef} />
       <InfiniteList
         items={filteredItems}
         loading={loading}
         onScrollEnd={loadMoreItems}
+        selectedItemIndex={selectedItemIndex}
+        listItemRefs={listItemRefs}
       />
       <BottomIcons onToggleTheme={toggleTheme} />
     </main>

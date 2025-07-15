@@ -1,4 +1,5 @@
 import React from 'react';
+import './BottomIcons.css';
 
 interface BottomIconsProps {
     onToggleTheme: () => void;

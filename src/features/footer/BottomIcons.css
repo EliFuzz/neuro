@@ -1,0 +1,21 @@
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1.2em;
+  border-top: 1px solid var(--border-color);
+  background: var(--bottom-section-bg);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.icon-left,
+.icon-right {
+  font-size: 1.6em;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--icon-color);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
