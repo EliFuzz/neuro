@@ -22,6 +22,15 @@ tauri = { version = "2.6.2", features = [ "macos-private-api", "tray-icon", "ima
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+tauri-plugin-shell = { version = "2.3.0" }
+tokio = { version = "1.46.1" }
+tokio-stream = { version = "0.1.17"}
+reqwest = { version = "0.12.22", features = ["json", "rustls-tls"] }
+liblzma = { version = "0.4.2" }
+zip = { version = "4.3.0" }
+tar = { version = "0.4.44" }
+flate2 = { version = "1.1.2" }
+bzip2 = { version = "0.6.0" }
 
 [target."cfg(target_os = \"macos\")".dependencies]
 cocoa = "0.26.1"
