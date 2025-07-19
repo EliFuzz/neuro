@@ -1,11 +1,11 @@
 :root {
   --text-color: #E0E0E0;
   --container-bg: rgba(30, 30, 35, 0.7);
-  --search-input-bg: rgba(40, 40, 45, 0.5);
-  --search-input-focus-bg: rgba(40, 40, 45, 0.9);
+  --search-input-bg: rgba(40, 40, 45, 0.6);
+  --search-input-focus-bg: rgba(20, 20, 25, 0.8);
   --list-section-bg: rgba(20, 20, 25, 0.5);
   --list-item-bg: rgba(20, 20, 25, 0.3);
-  --list-item-hover-bg: rgba(255, 255, 255, 0.15);
+  --list-item-hover-bg: rgba(255, 255, 255, 0.06);
   --border-color: rgba(255, 255, 255, 0.3);
 
   --bottom-section-bg: rgba(20, 20, 25, 0.5);
@@ -31,7 +31,7 @@ body.light-theme {
   --list-section-bg: rgba(250, 250, 250, 0.4);
   --list-item-bg: rgba(240, 240, 240, 0.3);
   --list-item-hover-bg: rgba(0, 0, 0, 0.01);
-  --border-color: rgba(0, 0, 0, 0.1);
+  --border-color: rgba(0, 0, 0, 0.3);
   --bottom-section-bg: rgba(240, 240, 240, 0.4);
   --icon-color: #505050;
   --placeholder-color: #6E6E73;

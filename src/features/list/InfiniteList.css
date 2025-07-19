@@ -6,7 +6,6 @@
 .list-section {
   flex-grow: 1;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   background: var(--list-section-bg);
   scroll-snap-type: y mandatory;
   scroll-padding-top: 50vh;
@@ -15,11 +14,18 @@
 
 .list-item {
   padding: 11px 15px;
-  background: var(--list-item-bg);
   color: var(--text-color);
   border-radius: .4em;
   box-shadow: none;
   transition: background-color 0.05s ease-in-out;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.list-item:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .list-item:hover {
@@ -34,4 +40,22 @@
   color: #888;
   border-radius: .4em;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.list-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list-section::-webkit-scrollbar-track { 
+  background: var(--list-section-bg);
+  border-radius: 10px;
+}
+
+.list-section::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+.list-section::-webkit-scrollbar-thumb:hover {
+  background: var(--placeholder-color);
 }
