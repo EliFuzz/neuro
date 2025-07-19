@@ -8,6 +8,9 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background: var(--list-section-bg);
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 50vh;
+  overscroll-behavior-y: contain;
 }
 
 .list-item {
