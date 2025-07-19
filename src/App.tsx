@@ -5,6 +5,8 @@ import BottomIcons from "./features/footer/BottomIcons";
 import InfiniteList from "./features/list/InfiniteList";
 import SearchInput from "./features/search/SearchInput";
 
+const isTauri = () => '__TAURI__' in window;
+
 function App() {
   const [theme, setTheme] = useState('dark');
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,10 +41,12 @@ function App() {
   };
 
   useEffect(() => {
+    if (!isTauri()) return;
+
     const win = getCurrentWindow();
     let unlistenFn: (() => void) | undefined;
 
-    win.onFocusChanged(() =>{}).then((unlistener) => {
+    win.onFocusChanged(() => {}).then((unlistener) => {
       unlistenFn = unlistener;
     });
 
